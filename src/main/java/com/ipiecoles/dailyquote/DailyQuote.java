@@ -15,6 +15,7 @@ public class DailyQuote {
         try {
             String responseJSON = getPageContents("http://quotes.rest/qod.json");
             DailyQuoteData dailyQuoteData = genson.deserialize(responseJSON, DailyQuoteData.class);
+            System.out.println(dailyQuoteData.toString());
             return dailyQuoteData;
         } catch (IOException e) {
             e.printStackTrace();
