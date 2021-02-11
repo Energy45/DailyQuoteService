@@ -1,9 +1,18 @@
 package com.ipiecoles.dailyquote;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class DailyQuoteData {
 
     private String author;
     private String quote;
+    private List<String> tags;
+    private String category;
+    private String language;
+    private LocalDate date;
+    private String permalink;
+
 
     public DailyQuoteData() {
     }

@@ -1,5 +1,7 @@
 package com.ipiecoles.dailyquote;
 
+import com.owlike.genson.Genson;
+
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +11,14 @@ import java.util.StringJoiner;
 public class DailyQuote {
 
     public DailyQuoteData getDailyQuote() {
+        Genson genson = new Genson();
+        try {
+            String responseJSON = getPageContents("http://quotes.rest/qod.json");
+            DailyQuoteData dailyQuoteData = genson.deserialize(responseJSON, DailyQuoteData.class);
+            return dailyQuoteData;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
