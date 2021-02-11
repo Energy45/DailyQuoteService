@@ -41,4 +41,17 @@ public class DailyQuoteData {
     public void setQuote(String quote) {
         this.quote = quote;
     }
+
+    @Override
+    public String toString() {
+        return "DailyQuoteData{" +
+                "author='" + author + '\'' +
+                ", quote='" + quote + '\'' +
+                ", tags=" + tags +
+                ", category='" + category + '\'' +
+                ", language='" + language + '\'' +
+                ", date=" + date +
+                ", permalink='" + permalink + '\'' +
+                '}';
+    }
 }
