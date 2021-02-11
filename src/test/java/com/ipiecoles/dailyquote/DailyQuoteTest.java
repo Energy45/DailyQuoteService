@@ -52,4 +52,13 @@ public class DailyQuoteTest {
         assertThat(dailyQuoteData.getAuthor()).isEqualTo(authorQuote);
         assertThat(dailyQuoteData.getQuote()).isEqualTo(quoteContent);
     }
+
+    @Test
+    void shouldDailyQuoteThrowParseException() {
+        DailyQuote dailyQuote = new DailyQuote();
+        String responseJSON = "{\n";
+
+        assertThatThrownBy(() -> dailyQuote.getDailyQuote(responseJSON))
+                .isInstanceOf(ParseException.class);
+    }
 }
