@@ -23,7 +23,7 @@ public class DailyQuote {
         return null;
     }
 
-    private String getPageContents(String address) throws IOException {
+    public String getPageContents(String address) throws IOException {
         BufferedReader br = null;
         StringJoiner lines = new StringJoiner(System.lineSeparator());
         try {
