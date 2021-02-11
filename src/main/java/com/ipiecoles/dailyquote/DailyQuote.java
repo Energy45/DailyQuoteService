@@ -1,6 +1,9 @@
 package com.ipiecoles.dailyquote;
 
-import com.owlike.genson.Genson;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
@@ -10,46 +13,34 @@ import java.util.StringJoiner;
 
 public class DailyQuote {
 
-    public DailyQuoteData getDailyQuote() {
-        Genson genson = new Genson();
-        //String responseJSON = getPageContents("http://quotes.rest/qod.json");
-        String responseJSON = "{\n" +
-                "    \"success\": {\n" +
-                "        \"total\": 1\n" +
-                "    },\n" +
-                "    \"contents\": {\n" +
-                "        \"quotes\": [\n" +
-                "            {\n" +
-                "                \"quote\": \"Logic will get you from A to B. Imagination will take you everywhere.\",\n" +
-                "                \"length\": \"69\",\n" +
-                "                \"author\": \"Albert Einstein\",\n" +
-                "                \"tags\": [\n" +
-                "                    \"imagination\",\n" +
-                "                    \"inspire\",\n" +
-                "                    \"t-shirt\"\n" +
-                "                ],\n" +
-                "                \"category\": \"inspire\",\n" +
-                "                \"language\": \"en\",\n" +
-                "                \"date\": \"2021-02-11\",\n" +
-                "                \"permalink\": \"https://theysaidso.com/quote/albert-einstein-logic-will-get-you-from-a-to-b-imagination-will-take-you-everywh\",\n" +
-                "                \"id\": \"cfDPmVkuKVadLkHsmY5hxAeF\",\n" +
-                "                \"background\": \"https://theysaidso.com/img/qod/qod-inspire.jpg\",\n" +
-                "                \"title\": \"Inspiring Quote of the day\"\n" +
-                "            }\n" +
-                "        ]\n" +
-                "    },\n" +
-                "    \"baseurl\": \"https://theysaidso.com\",\n" +
-                "    \"copyright\": {\n" +
-                "        \"year\": 2023,\n" +
-                "        \"url\": \"https://theysaidso.com\"\n" +
-                "    }\n" +
-                "}";
-        DailyQuoteData dailyQuoteData = genson.deserialize(responseJSON, DailyQuoteData.class);
-        System.out.println(dailyQuoteData.toString());
+    public DailyQuoteData getDailyQuote() throws ParseException {
+        try {
+            String responseJson = getPageContents("http://quotes.rest/qod.json");
+            return parseJsonIntoDailyQuoteData(responseJson);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public DailyQuoteData getDailyQuote(String json) throws ParseException {
+        return parseJsonIntoDailyQuoteData(json);
+    }
+
+    private DailyQuoteData parseJsonIntoDailyQuoteData(String json) throws ParseException {
+        DailyQuoteData dailyQuoteData = new DailyQuoteData();
+        JSONObject root = (JSONObject) new JSONParser().parse(json);
+        JSONObject content = (JSONObject) root.get("contents");
+        JSONArray quotes = (JSONArray) content.get("quotes");
+        JSONObject dailyQuote = (JSONObject) quotes.get(0);
+
+        dailyQuoteData.setAuthor((String) dailyQuote.get("author"));
+        dailyQuoteData.setQuote((String) dailyQuote.get("quote"));
+
         return dailyQuoteData;
     }
 
-    public String getPageContents(String address) throws IOException {
+    private String getPageContents(String address) throws IOException {
         BufferedReader br = null;
         StringJoiner lines = new StringJoiner(System.lineSeparator());
         try {
