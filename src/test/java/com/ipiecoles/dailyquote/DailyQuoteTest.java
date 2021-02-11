@@ -54,7 +54,7 @@ public class DailyQuoteTest {
     }
 
     @Test
-    void shouldDailyQuoteThrowParseException() {
+    public void shouldDailyQuoteThrowParseException() {
         DailyQuote dailyQuote = new DailyQuote();
         String responseJSON = "{\n";
 
