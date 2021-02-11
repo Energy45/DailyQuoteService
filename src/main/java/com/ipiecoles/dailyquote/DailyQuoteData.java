@@ -1,5 +1,7 @@
 package com.ipiecoles.dailyquote;
 
+import com.owlike.genson.annotation.JsonProperty;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -17,9 +19,11 @@ public class DailyQuoteData {
     public DailyQuoteData() {
     }
 
-    public DailyQuoteData(String author, String quote) {
-        this.author = author;
-        this.quote = quote;
+    public DailyQuoteData(@JsonProperty("quotes") List<Quotes> quotesList) {
+        if(quotesList.size() == 1) {
+            this.author = quotesList.get(0).getAuthor();
+            this.quote = quotesList.get(0).getQuote();
+        }
     }
 
     public String getAuthor() {
