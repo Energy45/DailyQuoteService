@@ -7,7 +7,7 @@ public class Main {
         DailyQuote dailyQuote = new DailyQuote();
         System.out.println(dailyQuote.getDailyQuote().toString());
 
-        System.out.println(dailyQuote.getPageContents("http://quotes.rest/qod.json"));
+//        System.out.println(dailyQuote.getPageContents("http://quotes.rest/qod.json"));
 
 
     }
