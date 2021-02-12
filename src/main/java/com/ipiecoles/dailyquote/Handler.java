@@ -32,6 +32,7 @@ public class Handler implements RequestHandler<Object, GatewayResponse> {
             return new GatewayResponse(body, headers, statusCode);
         } catch (ParseException e) {
             //Gère correctement l'exception
+            //loremipsum
             e.printStackTrace();
         }
 

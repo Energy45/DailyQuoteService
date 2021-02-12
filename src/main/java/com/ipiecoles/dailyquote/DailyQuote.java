@@ -18,6 +18,7 @@ public class DailyQuote {
             String responseJson = getPageContents("http://quotes.rest/qod.json");
             return parseJsonIntoDailyQuoteData(responseJson);
         } catch (IOException e) {
+
             e.printStackTrace();
             return null;
         }
@@ -30,13 +31,19 @@ public class DailyQuote {
     private DailyQuoteData parseJsonIntoDailyQuoteData(String json) throws ParseException {
         DailyQuoteData dailyQuoteData = new DailyQuoteData();
         JSONObject root = (JSONObject) new JSONParser().parse(json);
-        JSONObject content = (JSONObject) root.get("contents");
-        JSONArray quotes = (JSONArray) content.get("quotes");
-        JSONObject dailyQuote = (JSONObject) quotes.get(0);
 
-        dailyQuoteData.setAuthor((String) dailyQuote.get("author"));
-        dailyQuoteData.setQuote((String) dailyQuote.get("quote"));
+        if (root.containsKey("success")){
+            JSONObject content = (JSONObject) root.get("contents");
+            JSONArray quotes = (JSONArray) content.get("quotes");
+            JSONObject dailyQuote = (JSONObject) quotes.get(0);
 
+            dailyQuoteData.setAuthor((String) dailyQuote.get("author"));
+            dailyQuoteData.setQuote((String) dailyQuote.get("quote"));
+        }
+        else {
+            dailyQuoteData.setAuthor("un Auteur");
+            dailyQuoteData.setQuote("une Quote");
+        }
         return dailyQuoteData;
     }
 
