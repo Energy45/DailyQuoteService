@@ -7,11 +7,11 @@ public class DailyQuoteData {
 
     private String author;
     private String quote;
-    private List<String> tags;
-    private String category;
-    private String language;
-    private LocalDate date;
-    private String permalink;
+//    private List<String> tags;
+//    private String category;
+//    private String language;
+//    private LocalDate date;
+//    private String permalink;
 
 
     public DailyQuoteData() {
@@ -43,11 +43,8 @@ public class DailyQuoteData {
         return "DailyQuoteData{" +
                 "author='" + author + '\'' +
                 ", quote='" + quote + '\'' +
-                ", tags=" + tags +
-                ", category='" + category + '\'' +
-                ", language='" + language + '\'' +
-                ", date=" + date +
-                ", permalink='" + permalink + '\'' +
                 '}';
     }
+
+
 }
