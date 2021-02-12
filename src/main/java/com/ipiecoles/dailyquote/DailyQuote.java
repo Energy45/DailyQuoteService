@@ -13,14 +13,15 @@ import java.util.StringJoiner;
 
 public class DailyQuote {
 
+    public static String AUTHOR_DEFAULT = "un Auteur";
+    public static String QUOTE_DEFAULT = "une Quote";
+
     public DailyQuoteData getDailyQuote() throws ParseException {
         try {
             String responseJson = getPageContents("http://quotes.rest/qod.json");
             return parseJsonIntoDailyQuoteData(responseJson);
         } catch (IOException e) {
-
-            e.printStackTrace();
-            return null;
+            return new DailyQuoteData(AUTHOR_DEFAULT, QUOTE_DEFAULT);
         }
     }
 
@@ -41,8 +42,8 @@ public class DailyQuote {
             dailyQuoteData.setQuote((String) dailyQuote.get("quote"));
         }
         else {
-            dailyQuoteData.setAuthor("un Auteur");
-            dailyQuoteData.setQuote("une Quote");
+            dailyQuoteData.setAuthor(AUTHOR_DEFAULT);
+            dailyQuoteData.setQuote(AUTHOR_DEFAULT);
         }
         return dailyQuoteData;
     }
